@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const { generateUserRefreshToken } = require('../config/refreshToken');
 
 
+//Registers a new user
 const createUser = asyncHandler(async (req, res) => {
         const { email } = req.body;
         const findUser = await User.exists({ email });
@@ -17,6 +18,8 @@ const createUser = asyncHandler(async (req, res) => {
         }
     }    
 )
+
+//Login a user
 
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -66,6 +69,33 @@ const handleRefreshToken =  asyncHandler(async (req, res) => {
     })
 })
 
+//Logout a user
+
+const logoutUser = asyncHandler(async (req, res) => {
+    const cookie = req.cookies;
+    if (!cookie?.refreshToken) throw new Error('No refresh Token in cookies');
+    const refreshToken = cookie.refreshToken;
+    const userWithToken = await User.findOne({ refreshToken });
+
+    if (!userWithToken){
+        res.clearCookie('refreshToken', {
+            httpOnly: true,
+            secure: true,
+        });
+        return res.sendStatus(204); //Forbidden
+    }
+    await User.findOneAndUpdate(refreshToken,{
+        refreshToken: '',
+    });
+    res.clearCookie('refreshToken', {
+        httpOnly: true,
+        secure: true,
+    });
+    return res.sendStatus(204); //Forbidden
+})
+
+//Updates a user's data
+
 const updateUser = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     validateMongodbId(_id);
@@ -82,6 +112,8 @@ const updateUser = asyncHandler(async (req, res) => {
     }
 })
 
+//Fetches all users from db
+
 const getAllUsers = asyncHandler(async (req, res) => {
     try {
         const allUsersDocs = await User.find();
@@ -91,6 +123,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
     }
 })
 
+//Fetches all users from db
 const getUser = asyncHandler(async (req, res) => {
     const { id } = req.params;
     validateMongodbId(id);
@@ -103,6 +136,8 @@ const getUser = asyncHandler(async (req, res) => {
 })
 
 
+//Deletes a user form the db
+
 const deleteUser = asyncHandler(async (req, res) => {
     const { id } = req.params;
     validateMongodbId(id);
@@ -114,6 +149,8 @@ const deleteUser = asyncHandler(async (req, res) => {
     }
 })
 
+
+//Blocks a user
 
 const blockUser = asyncHandler(async (req, res) => {
     const { id } = req.params;
@@ -133,7 +170,7 @@ const blockUser = asyncHandler(async (req, res) => {
     }
 })
 
-
+//Unblocks a user
 const unblockUser = asyncHandler(async (req, res) => {
     const { id } = req.params;
     validateMongodbId(id);
@@ -162,4 +199,5 @@ module.exports = {
     blockUser,
     unblockUser,
     handleRefreshToken,
+    logoutUser,
 }
