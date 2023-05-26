@@ -2,7 +2,9 @@ const Product = require("../models/productModel");
 const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
 const User = require("../models/userModel");
-
+const validateMongodbId = require('../utils/validateMongodbId');
+const cloudinaryUploadImage = require('../utils/cloudinary');
+const fs = require('fs');
 const createProduct = asyncHandler(async (req, res) => {
   if (req.body.title) {
     req.body.slug = slugify(req.body.title);
@@ -130,7 +132,7 @@ const addToWishlist = asyncHandler(async (req, res) => {
 
 const rating = asyncHandler(async (req, res) => {
   const { _id } = req.user;
-  const { star, prodId } = req.body;
+  const { star, prodId, comment } = req.body;
   try {
     const product = await Product.findById(prodId);
     let alreadyRated = product.ratings.find(
@@ -143,7 +145,8 @@ const rating = asyncHandler(async (req, res) => {
           ratings: { $elemMatch: alreadyRated },
         },
         {
-          $set: { "ratings.$.star": star },
+          $set: { "ratings.$.star": star, "ratings.$.comment": comment },
+
         },
         {
           new: true,
@@ -156,6 +159,7 @@ const rating = asyncHandler(async (req, res) => {
           $push: {
             ratings: {
               star: star,
+              comment: comment,
               postedBy: _id,
             },
           },
@@ -186,6 +190,31 @@ const rating = asyncHandler(async (req, res) => {
   }
 });
 
+const uploadImages = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongodbId(id);
+  try {
+    const uploader = (path) => cloudinaryUploadImage(path, 'images');
+    const urls = [];
+    const files = req.files;
+    for (const file of files){
+      const { path } = file;
+      const newPath = await uploader(path);
+      urls.push(newPath);
+      fs.unlinkSync(path);
+    }
+
+    const productDoc = await Product.findByIdAndUpdate(id, {
+      images: urls.map(file => {
+        return file;
+      }),
+    }, { new: true, })
+    res.json(productDoc);
+  } catch(e){
+    throw new Error(e);
+  }
+});
+
 module.exports = {
   createProduct,
   getProduct,
@@ -194,4 +223,5 @@ module.exports = {
   removeProduct,
   addToWishlist,
   rating,
+  uploadImages,
 };
