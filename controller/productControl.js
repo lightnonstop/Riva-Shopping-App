@@ -82,7 +82,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
     //Pagination
     const page = req.query.page;
     const limit = req.query.limit;
-    const skip = (page - 1) * limit || 1;
+    const skip = (page - 1) * limit;
     query = query.skip(skip).limit(limit);
     if (req.query.page) {
       const totalProducts = await Product.countDocuments();
@@ -191,8 +191,6 @@ const rating = asyncHandler(async (req, res) => {
 });
 
 const uploadImages = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  validateMongodbId(id);
   try {
     const uploader = (path) => cloudinaryUploadImage(path, 'images');
     const urls = [];
@@ -203,13 +201,10 @@ const uploadImages = asyncHandler(async (req, res) => {
       urls.push(newPath);
       fs.unlinkSync(path);
     }
-
-    const productDoc = await Product.findByIdAndUpdate(id, {
-      images: urls.map(file => {
-        return file;
-      }),
-    }, { new: true, })
-    res.json(productDoc);
+    const images = urls.map(file => {
+      return file;
+    });
+    res.json(images);
   } catch(e){
     throw new Error(e);
   }
