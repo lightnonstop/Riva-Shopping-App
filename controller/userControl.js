@@ -1,9 +1,10 @@
 const { generateUserToken } = require('../config/jwtToken');
 const User = require('../models/userModel');
 const asyncHandler = require('express-async-handler');
-const validateMongodbId = require('../utils/validateMongodbId');
 const jwt = require('jsonwebtoken');
 const { generateUserRefreshToken } = require('../config/refreshToken');
+const sendEmail = require('./emailControl');
+const crypto = require('crypto');
 
 
 //Registers a new user
@@ -46,6 +47,40 @@ const loginUser = asyncHandler(async (req, res) => {
             email: userDoc?.email,
             mobile: userDoc?.mobile,
             token: generateUserToken(userDoc?._id)
+        })
+    } else {
+        throw new Error('Invalid Credentials');
+    }
+})
+
+//Login admin
+
+const loginAdmin = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    //Checks if user claimed email address exists
+    const adminDoc = await User.findOne({ email });
+    if (userAdmin.role !== 'admin') throw new Error('Not authorised');
+    const adminPasswordMatched = await adminDoc.isPasswordMatched(password);
+    if (adminDoc && adminPasswordMatched){
+        const refreshToken = await generateUserRefreshToken(adminDoc?._id);
+        const updatedUser = await User.findByIdAndUpdate(
+            adminDoc.id,
+            {
+                refreshToken: refreshToken,
+            }, 
+            { new: true }
+            );
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                maxAge: 72 * 60 * 60 * 1000,
+            });
+        res.json({
+            _id: adminDoc?._id,
+            firstname: adminDoc?.firstname,
+            lastname: adminDoc?.lastname,
+            email: adminDoc?.email,
+            mobile: adminDoc?.mobile,
+            token: generateUserToken(adminDoc?._id)
         })
     } else {
         throw new Error('Invalid Credentials');
@@ -205,6 +240,45 @@ const updatePassword = asyncHandler(async (req, res) => {
     }
 })
 
+const forgotPasswordToken = asyncHandler(async (req, res) => {
+    const { email } = req.body;
+    const userDoc = await User.findOne({ email });
+    if (!userDoc) throw new Error('User not found with this eamil');
+    try {
+        const token = await userDoc.createPasswordResetToken();
+        await userDoc.save();
+        const resetMessageAndURL = `Hi, please follow this link to reset your passoword. Validation is 10 minutes from now. <a href='http://localhost:4000/api/user/reset-password/${token}'>Click here</a>`;
+        const data = {
+            to: email,
+            text: "Hey user",
+            subject: 'Forgot Password',
+            htm: resetMessageAndURL,
+        };
+        sendEmail(data);
+        res.json(token);
+    } catch (e) {
+       throw new Error(e); 
+    }
+    
+})
+
+
+const resetPassword = asyncHandler(async (req, res) => {
+    const { password } = req.body;
+    const { token } = req.params;
+    const hashedToken = crypto.createHash("sha256").update(token).digest('hex');
+    const userDoc = await User.findOne({ 
+        passwordResetToken: hashedToken,
+        passwordResetExpires: { $gt: Date.now() },
+    });
+    if (!userDoc) throw new Error('Token expired, Please try again later');
+    userDoc.password = password;
+    userDoc.passwordResetToken = undefined;
+    userDoc.passwordResetExpires =  undefined;
+    await userDoc.save;
+    res.json(userDoc);
+})
+
 module.exports = {
     createUser,
     loginUser,
@@ -217,4 +291,7 @@ module.exports = {
     handleRefreshToken,
     logoutUser,
     updatePassword,
+    forgotPasswordToken,
+    resetPassword,
+    loginAdmin,
 }
