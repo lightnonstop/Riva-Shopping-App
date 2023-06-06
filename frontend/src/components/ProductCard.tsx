@@ -4,14 +4,15 @@ import { Link } from 'react-router-dom';
 export default function ProductCard() {
   return (
     <div className='col-3'>
-      <div className='product-card position-relative'>
+      <Link to='' className='product-card position-relative'>
         <div className='wishlist-icon position-absolute'>
           <Link to=''>
             <img src="/images/wish.svg" alt="wishlist" />
           </Link>
         </div>
         <div className='product-image'>
-          <img src="/images/watch.jpg" alt="product" />
+          <img className='img-fluid' src="/images/watch.jpg" alt="product" />
+          <img className='img-fluid' src="/images/homeapp.jpg" alt="product" />
         </div>
         <div className='product-details'>
           <h6 className='brand'>Havels</h6>
@@ -40,7 +41,7 @@ export default function ProductCard() {
             </Link>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   )
 } 
