@@ -9,7 +9,7 @@ export default function OurStore() {
         <div className="container-xxl">
           <div className="row">
             <div className="col-3">
-              <div className="filter-card">
+              <div className="filter-card mb-3">
                 <h3 className="filter-title">
                   Shop By Categories
                 </h3>
@@ -20,12 +20,29 @@ export default function OurStore() {
                   <li>Laptop</li>
                 </ul>
               </div>
-              <div className="filter-card">
+              <div className="filter-card mb-3">
                 <h3 className="filter-title">
                   Filter By
                 </h3>
+                <div>
+                  <h5 className="sub-title">Availability</h5>
+                  <div className="form-check">
+                    <input type="checkbox" className="form-check-input" />
+                    <label htmlFor="" className="form-check-label">
+                      In Stock (1)
+                    </label>
+                  </div>
+                </div>
+                <div>
+                  <div className="form-check">
+                    <input type="checkbox" className="form-check-input" />
+                    <label htmlFor="" className="form-check-label">
+                      Out of Stock (0)
+                    </label>
+                  </div>
+                </div>
               </div>
-              <div className="filter-card">
+              <div className="filter-card mb-3">
                 <h3 className="filter-title">
                   Product Tags
                 </h3>
