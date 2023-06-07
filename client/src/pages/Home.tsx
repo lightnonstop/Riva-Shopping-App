@@ -329,8 +329,8 @@ export default function Home() {
               <div className="col-12">
                 <h3 className="section-heading">Our Latest Feed</h3>
               </div>
-              <div className="row border">
-                <div className="col-12">
+              <div className="col-12">
+                <div className="d-flex align-items-center gap-15">
                   <BlogCard />
                   <BlogCard />
                   <BlogCard />
