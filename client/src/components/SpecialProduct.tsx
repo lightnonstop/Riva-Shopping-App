@@ -1,4 +1,4 @@
-import React from 'react'
+
 import ReactStars from 'react-rating-stars-component';
 import { Link } from 'react-router-dom';
 export default function SpecialProduct() {
