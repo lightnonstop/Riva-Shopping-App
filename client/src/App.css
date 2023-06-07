@@ -249,6 +249,21 @@ footer .input-group-text{
   line-height: 22px;
   color: var(--color-777777);
 }
+
+.single-blog-card h3{
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-1C1C1B);
+}
+.single-blog-card a{
+  font-size: 18px;
+  color: var(--color-777777);
+  margin-bottom: 20px;
+}
+.single-blog-card p{
+  color: var(--color-777777);
+  font-size: 14px;
+}
 /*Blog Part Ends Here */
 
 /* Product Card */
@@ -498,10 +513,10 @@ footer .input-group-text{
   line-height: 22px;
   color: var(--color-1C1C1B);
 }
-.compare-product-details h5.title{
+.compare-product-details h5.title, .wishlist-card h5.title{
   font-weight: 500;
 }
-.compare-product-details h6.price{
+.compare-product-details h6.price, .wishlist-card h6.price{
   font-weight: 400;
 }
 .compare-product-card .product-detail{
@@ -512,3 +527,78 @@ footer .input-group-text{
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 /* Compare Produts Ends Here */
+
+/* Auth Card (Login Page) */
+
+.auth-card{
+  padding: 20px;
+  background-color: #FFFFFF;
+  width: 500px;
+  margin: 30px auto;
+  border-radius: 10px;
+}
+.auth-card p{
+  font-size: 13px;
+  color: var(--color-777777);
+}
+.auth-card h3{
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--color-777777);
+}
+.auth-card .form-control{
+  height: 50px;
+  background-color: var(--color-F5F5F7);
+  color: var(--color-777777);
+  border-radius: 5px;
+  font-size: 14px;
+  border-color: transparent;
+}
+.auth-card a{
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-1C1C1B);
+}
+.auth-card .signup{
+  background-color: var(--color-FEBD69);
+  color: var(--color-131921);
+}
+.auth-card .signup:hover{
+  background-color: var(--color-131921);
+  color: #FFFFFF;
+}
+/* Auth Card Ends Here */
+
+/* Policy Pages */
+.policy{
+  background-color: #FFFFFF;
+  padding: 30px;
+}
+/* Policy Pages End Here */
+
+/* Main Product Page */
+.review-inner-wrapper{
+  background-color: #FFFFFF;
+  padding: 30px;
+}
+.review-head{
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-bottom: 20px;
+}
+.review-head h4{
+  font-size: 18px;
+  color: var(--color-1C1C1B);
+}
+.review-head p, .review-head a{
+  font-size: 14px;
+  color: var(--color-777777);
+}
+.review-form h4{
+  font-size: 16px;
+  color: var(--color-777777);
+}
+.review p{
+  font-size: 14px;
+  color: var(--color-777777);
+}
+/* Main Product Page Ends Here */
