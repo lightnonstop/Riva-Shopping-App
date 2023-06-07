@@ -11,7 +11,7 @@ export default function ProductCard({ grid }: ProductCardProps) {
       ? `gr-${grid}`
       : 'col-3'
     }>
-      <Link to='' className='product-card position-relative'>
+      <Link to=':id' className='product-card position-relative'>
         <div className='wishlist-icon position-absolute'>
           <Link to=''>
             <img src="/images/wish.svg" alt="wishlist" />
