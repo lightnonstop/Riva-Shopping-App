@@ -447,7 +447,6 @@ footer .input-group-text{
 /*Contact Page */
 .contact-inner-wrapper{
   padding: 20px;
-  border: 1px solid;
   border-radius: 7px;
   background-color: #FFFFFF;
   gap: 60px;
@@ -471,6 +470,10 @@ footer .input-group-text{
 }
 .contact-inner-wrapper ul{
   list-style: none;
-  padding-left: 0;
+}
+.contact-inner-wrapper address, 
+.contact-inner-wrapper a, 
+.contact-inner-wrapper p{
+  color: var(--color-777777);
 }
 /*Contact Page Ends Here */
