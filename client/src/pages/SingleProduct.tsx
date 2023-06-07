@@ -70,11 +70,11 @@ export default function SingleProduct() {
                     </div>
                 </div>
             </div>
-            <section id='review' className='reviews-wrapper home-wrapper-2'>
+            <section className='reviews-wrapper home-wrapper-2'>
                 <div className='container-xxl'>
                     <div className='row'>
                         <div className='col-12'>
-                            <h3>Reviews</h3>
+                            <h3 id='review'>Reviews</h3>
                             <div className='review-inner-wrapper'>
                                 <div className='review-head d-flex justify-content-between align-items-end'>
                                     <div>
