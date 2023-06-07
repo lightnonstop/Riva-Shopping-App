@@ -10,7 +10,7 @@ export default function Login() {
         <div className='login-wrapper home-wrapper-2 py-5'>
             <div className='row'>
                 <div className='col-12'>
-                    <div className="login-card">
+                    <div className="auth-card">
                         <h3>Login</h3>
                         <form action="">
                             <div>
