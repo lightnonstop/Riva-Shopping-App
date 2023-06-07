@@ -11,20 +11,20 @@ export default function Login() {
             <div className='row'>
                 <div className='col-12'>
                     <div className="auth-card">
-                        <h3>Login</h3>
-                        <form action="">
+                        <h3 className='text-center mb-3'>Login</h3>
+                        <form action="" className='d-flex flex-column gap-15'>
                             <div>
-                                <input type="email" name='email' className="form-control" placeholder='email' />
+                                <input type="email" name='email' className="form-control" placeholder='Email' />
                             </div>
 
-                            <div>
-                                <input type="password" name='password' className="form-control" placeholder='password' />
+                            <div className='mt-1'>
+                                <input type="password" name='password' className="form-control" placeholder='Password' />
                             </div>
                             <div>
                                 <Link to='/forgot-password'>Forgot Password</Link>
-                                <div className='d-flex justify-content-center align-items-center gap-15'>
+                                <div className='mt-3 d-flex justify-content-center align-items-center gap-15'>
                                     <button className='button border-0'>Login</button>
-                                    <Link to='/signup' className='button border-0'>Signup</Link>
+                                    <Link to='/signup' className='buttonborder-0 signup'>Signup</Link>
                                 </div>
                             </div>
                         </form>
