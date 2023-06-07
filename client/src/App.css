@@ -443,3 +443,34 @@ footer .input-group-text{
   top: 29%;
 }
 /*Our Store Ends Here */
+
+/*Contact Page */
+.contact-inner-wrapper{
+  padding: 20px;
+  border: 1px solid;
+  border-radius: 7px;
+  background-color: #FFFFFF;
+  gap: 60px;
+}
+.contact-inner-wrapper > div{
+  flex: 1;
+}
+.contact-title{
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 35px;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+.contact-inner-wrapper form .form-control{
+  background-color: var(--color-F5F5F7);
+  border-color: transparent;
+  border-radius: 5px;
+  padding: 10px;
+  padding-left: 13px;
+}
+.contact-inner-wrapper ul{
+  list-style: none;
+  padding-left: 0;
+}
+/*Contact Page Ends Here */
