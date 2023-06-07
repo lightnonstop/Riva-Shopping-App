@@ -258,6 +258,7 @@ footer .input-group-text{
   background-color: white;
   border-radius: 10px;
   overflow: hidden;
+  width: 100%;
 }
 .product-card .product-image{
   height: 270px;
@@ -289,6 +290,11 @@ footer .input-group-text{
 .product-card .product-details p.price{
   font-size: 16px;
   color: var(--color-1C1C1B);
+}
+.product-card .product-details p.description{
+  font-size: 13px;
+  color: var(--color-777777);
+  margin-right: 200px;
 }
 .action-bar{
   top: 10%;
@@ -396,7 +402,44 @@ footer .input-group-text{
   border-radius: 10px;
 }
 .grid img{
-  width: 34px;
-  height: 34px;
+  width: 35px;
+  height: 35px;
+  background-color: #F2F2F2;
+  padding: 8px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.gr-12{
+  width: 100%;
+}
+.gr-6{
+  width: 49.4%;
+}
+.gr-4{
+  width: 32.6%;
+}
+.gr-3{
+  width: 24.2%;
+}
+.gr-12 .product-card{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.gr-6 .product-image img{
+  margin: auto;
+  display: block;
+}
+.gr-12 .product-card .product-image{
+  flex: 0.6;
+}
+.gr-12 .product-card .product-image{
+  height: auto;
+}
+.gr-12 .wishlist-icon{
+  top: 9%;
+}
+.gr-12 .action-bar{
+  top: 29%;
 }
 /*Our Store Ends Here */

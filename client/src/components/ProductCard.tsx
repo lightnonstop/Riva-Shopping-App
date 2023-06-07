@@ -1,9 +1,16 @@
 import React from 'react'
 import ReactStars from 'react-rating-stars-component';
-import { Link } from 'react-router-dom';
-export default function ProductCard() {
+import { Link, useLocation } from 'react-router-dom';
+type ProductCardProps = {
+  grid?: number;
+}
+export default function ProductCard({ grid }: ProductCardProps) {
+  let location = useLocation();  
   return (
-    <div className='col-3'>
+    <div className={location.pathname === '/store'
+      ? `gr-${grid}`
+      : 'col-3'
+    }>
       <Link to='' className='product-card position-relative'>
         <div className='wishlist-icon position-absolute'>
           <Link to=''>
@@ -12,7 +19,7 @@ export default function ProductCard() {
         </div>
         <div className='product-image'>
           <img className='img-fluid' src="/images/watch.jpg" alt="product" />
-          <img className='img-fluid' src="/images/homeapp.jpg" alt="product" />
+          <img className='img-fluid' src="/images/watch-1.avif" alt="product" />
         </div>
         <div className='product-details'>
           <h6 className='brand'>Havels</h6>
@@ -22,10 +29,14 @@ export default function ProductCard() {
           <ReactStars
             count={5}
             size={24}
-            value='3'
+            value={3}
             edit={false}
             activeColor='#FFD700'
            />
+           <p className={`description ${grid === 12 
+           ? 'd-block'
+           : 'd-none'
+          }`}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius ducimus doloremque minima suscipit neque, distinctio est, nisi assumenda similique aspernatur odit! Consequuntur, quis. Sit assumenda illo minima, facilis sint magnam...</p>
           <p className="price">$100.00</p>
         </div>
         <div className='action-bar position-absolute'>

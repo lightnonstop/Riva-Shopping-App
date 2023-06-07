@@ -21,7 +21,7 @@ export default function Header() {
           <div className="row align-items-center">
             <div className="col-2">
               <h2>
-                <Link className="text-white" to=''>Diva.</Link>
+                <Link className="text-white fs" to=''>RIVA.</Link>
               </h2>
             </div>
             <div className="col-5">
@@ -41,7 +41,7 @@ export default function Header() {
             <div className="col-5">
               <div className="header-upper-links d-flex align-items-center justify-content-between">
                 <div>
-                  <Link to='' className="d-flex align-items-center gap-10">
+                  <Link to='' className="d-flex align-items-center gap-10 text-white">
                     <img src="/images/compare.svg" alt="compare" />
                     <p className="mb-0">
                       Compare <br /> Products
@@ -49,7 +49,7 @@ export default function Header() {
                   </Link>
                 </div>
                 <div>
-                  <Link to='' className="d-flex align-items-center gap-10">
+                  <Link to='' className="d-flex align-items-center gap-10 text-white">
                     <img src="/images/wishlist.svg" alt="wishlist" />
                       <p className="mb-0">
                       Favourite <br /> Products
@@ -57,7 +57,7 @@ export default function Header() {
                   </Link>
                 </div>
                 <div>
-                  <Link to='' className="d-flex align-items-center gap-10">
+                  <Link to='' className="d-flex align-items-center gap-10 text-white">
                   <img src="/images/user.svg" alt="user" />
                     <p className="mb-0">
                       Log in  <br /> My Account
@@ -65,7 +65,7 @@ export default function Header() {
                   </Link>
                 </div>
                 <div>
-                  <Link to='' className="d-flex align-items-center gap-10">
+                  <Link to='' className="d-flex align-items-center gap-10 text-white">
                   <img src="/images/cart.svg" alt="" />
                     <div className="d-flex flex-column gap-10">
                       <span className="badge bg-white text-dark">0</span>
@@ -85,21 +85,22 @@ export default function Header() {
               <div className="menu-bottom d-flex align-items-center gap-30">
                 <div>
                   <div className="dropdown">
-                    <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Dropdown button
+                    <button className="btn btn-secondary dropdown-toggle bg-transparent border-0 gap-15 d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="/images/menu.svg" alt="menu" />
+                      <span className="me-5 d-inline-block">shop categories</span>
                     </button>
                     <ul className="dropdown-menu">
-                      <li><a className="dropdown-item" href="#">Action</a></li>
-                      <li><a className="dropdown-item" href="#">Another action</a></li>
-                      <li><a className="dropdown-item" href="#">Something else here</a></li>
+                      <li><Link className="dropdown-item text-white" to="/">Action</Link></li>
+                      <li><Link className="dropdown-item text-white" to="/">Another action</Link></li>
+                      <li><Link className="dropdown-item text-white" to="/">Something else here</Link></li>
                     </ul>
                   </div>
                 </div>
                 <div className="menu-links">
                   <div className="d-flex align-items-center gap-15">
                     <NavLink to='/'>Home</NavLink>
-                    <NavLink to='/'>Our Store</NavLink>
-                    <NavLink to='/'>Blogs</NavLink>
+                    <NavLink to='/store'>Our Store</NavLink>
+                    <NavLink to='/blogs'>Blogs</NavLink>
                     <NavLink to='/'>Contact</NavLink>
                   </div>
                 </div>

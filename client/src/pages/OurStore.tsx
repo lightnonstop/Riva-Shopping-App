@@ -1,7 +1,11 @@
+import { useState } from "react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import ReactStars from 'react-rating-stars-component';
+import ProductCard from "../components/ProductCard";
+import FilterCard from "../components/FilterCard";
 export default function OurStore() {
+  const [grid, setGrid] = useState<number>(4);
   return (
     <>
       <Meta title="Our Store" />
@@ -10,17 +14,7 @@ export default function OurStore() {
         <div className="container-xxl">
           <div className="row">
             <div className="col-3">
-              <div className="filter-card mb-3">
-                <h3 className="filter-title">
-                  Shop By Categories
-                </h3>
-                <ul className="ps-0">
-                  <li>Watch</li>
-                  <li>TV</li>
-                  <li>Camera</li>
-                  <li>Laptop</li>
-                </ul>
-              </div>
+              <FilterCard heading="Shop By Categories" />
               <div className="filter-card mb-3">
                 <h3 className="filter-title">Filter By</h3>
                 <div>
@@ -123,7 +117,7 @@ export default function OurStore() {
                       <ReactStars
                         count={5}
                         size={24}
-                        value='3'
+                        value={3}
                         edit={false}
                         activeColor='#FFD700'
                       />
@@ -140,7 +134,7 @@ export default function OurStore() {
                       <ReactStars
                         count={5}
                         size={24}
-                        value='3'
+                        value={3}
                         edit={false}
                         activeColor='#FFD700'
                       />
@@ -151,7 +145,7 @@ export default function OurStore() {
               </div>
             </div>
             <div className="col-9">
-              <div className="filter-sort-grid">
+              <div className="filter-sort-grid mb-4">
                 <div className="d-flex  align-items-center justify-content-between">
                   <div className="d-flex align-items-center gap-10">
                     <p className="mb-0" style={{width: '100px'}}>Sort By:</p>
@@ -169,13 +163,26 @@ export default function OurStore() {
                   <div className="d-flex align-items-center gap-10 grid">
                     <p className="totalproducts mb-0">21 Products</p>
                     <div className="d-flex gap-10 align-items-center">
-                      <img className="d-block img-fluid" src="/images/gr4.svg" alt="grid" />
-                      <img className="d-block img-fluid" src="/images/gr3.svg" alt="grid" />
-                      <img className="d-block img-fluid" src="/images/gr2.svg" alt="grid" />
-                      <img className="d-block img-fluid" src="/images/gr.svg" alt="grid" />
+                      <img onClick={() => setGrid(3)} className="d-block img-fluid" src="/images/gr4.svg" alt="grid" />
+                      <img onClick={() => setGrid(4)} className="d-block img-fluid" src="/images/gr3.svg" alt="grid" />
+                      <img onClick={() => setGrid(6)} className="d-block img-fluid" src="/images/gr2.svg" alt="grid" />
+                      <img onClick={() => setGrid(12)} className="d-block img-fluid" src="/images/gr.svg" alt="grid" />
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="products-list pb-5 d-flex flex-wrap gap-10 align-items-center">
+                <ProductCard grid={grid}/>
+                <ProductCard grid={grid}/>
+                <ProductCard grid={grid}/>
+                <ProductCard grid={grid}/>
+                <ProductCard grid={grid}/>
+                <ProductCard grid={grid}/>
+                <ProductCard grid={grid}/>
+                <ProductCard grid={grid}/>
+                <ProductCard grid={grid}/>
+                <ProductCard grid={grid}/>
+                <ProductCard grid={grid}/>
               </div>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactStars from 'react-rating-stars-component';
+import { Link } from 'react-router-dom';
 export default function SpecialProduct() {
   return (
     <div className='col-4'>
@@ -16,7 +17,7 @@ export default function SpecialProduct() {
                     <ReactStars
                         count={5}
                         size={24}
-                        value='3'
+                        value={3}
                         edit={false}
                         activeColor='#FFD700'
                     />
@@ -28,12 +29,12 @@ export default function SpecialProduct() {
                             <b>4 </b>days
                         </p>
                         <div className='d-flex gap-10 align-items-center'>
-                            <span className='badge rounded-circle p-2 bg-warning'>1</span>:
-                            <span className='badge rounded-circle p-2 bg-warning'>1</span>:
-                            <span className='badge rounded-circle p-2 bg-warning'>1</span>
+                            <span className='badge rounded-circle p-3 bg-danger'>1</span>:
+                            <span className='badge rounded-circle p-3 bg-danger'>1</span>:
+                            <span className='badge rounded-circle p-3 bg-danger'>1</span>
                         </div>
                     </div>
-                    <div className='prod-count'>
+                    <div className='prod-count my-3'>
                             <p>Products: 5</p>
                             <div className='progress'>
                                 <div 
@@ -45,7 +46,8 @@ export default function SpecialProduct() {
                                 aria-valuemax={100}
                                 />
                             </div>
-                        </div>
+                    </div>
+                    <Link to='' className='button'>Add to Cart</Link>
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Marquee from 'react-fast-marquee';
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
+import SpecialProduct from "../components/SpecialProduct";
 export default function Home() {
   return (
     <>
@@ -208,6 +209,84 @@ export default function Home() {
             </div>
         </div>
       </section>
+      <section className="famous-wrapper py-5 home-wrapper-2">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-3">
+              <div className="famous-card position-relative">
+                <img src="/images/famous-1.webp" className="img-fluid" alt="famous" />
+                <div className="famous-content position-absolute">
+                  <h5>Big Screen</h5> 
+                  <h6>Smart Watch Series 7.</h6>
+                  <p>From $399 or $14.42/mo. for 24 mo.*</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-3">
+              <div className="famous-card position-relative">
+                <img src="/images/famous-2.webp" className="img-fluid" alt="famous" />
+                <div className="famous-content position-absolute text-dark">
+                  <h5>Studio Display</h5> 
+                  <h6>Smartphone 13 Pro.</h6>
+                  <p>27-inch 5k retina display</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-3">
+              <div className="famous-card position-relative">
+                <img src="/images/famous-3.webp" className="img-fluid" alt="famous" />
+                <div className="famous-content position-absolute text-dark">
+                  <h5>Smartphones</h5> 
+                  <h6>Room-filling sound.</h6>
+                  <p>Now in Green from $999.00 or $41.62/mo. for 24 mo. Footnote*</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-3">
+              <div className="famous-card position-relative">
+                <img src="/images/famous-4.webp" className="img-fluid" alt="famous" />
+                <div className="famous-content position-absolute text-dark">
+                  <h5>Home Speakers</h5> 
+                  <h6>Room-filling sound.</h6>
+                  <p>From $699 or $116.58 /mo. for 12 mo.*</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="special-wrapper py-5 home-wrapper-2">
+        <div className="container-xxl">
+          <div className="row">
+            <div className="col-12">
+              <h3 className="section-heading">Special Products</h3>
+            </div>
+          </div>
+          <div className="row">
+            <SpecialProduct />
+            <SpecialProduct />
+            <SpecialProduct />
+          </div>
+        </div>
+      </section>
+      <section className="popular-wrapper py-5 home-wrapper-2">
+        <div className="container-xxl">
+            <div className="row">
+              <div className="col-12">
+                <h3 className="section-heading">Our Popular Products</h3>
+              </div>
+              <div className="row">
+                <ProductCard />
+                <ProductCard />
+                <ProductCard />
+                <ProductCard />
+              </div>
+            </div>
+        </div>
+      </section>
       <section className="marquee-wrapper-2 py-5">
         <div className="container-xxl">
           <div className="row">
@@ -250,10 +329,14 @@ export default function Home() {
               <div className="col-12">
                 <h3 className="section-heading">Our Latest Feed</h3>
               </div>
-              <BlogCard />
-              <BlogCard />
-              <BlogCard />
-              <BlogCard />
+              <div className="row border">
+                <div className="col-12">
+                  <BlogCard />
+                  <BlogCard />
+                  <BlogCard />
+                  <BlogCard />
+                </div>
+              </div>
             </div>
         </div>
       </section>
