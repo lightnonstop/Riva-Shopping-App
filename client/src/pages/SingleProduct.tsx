@@ -4,6 +4,7 @@ import Meta from "../components/Meta";
 import ProductCard from '../components/ProductCard';
 import ReactStars from 'react-rating-stars-component';
 import ReactImageZoom from 'react-image-zoom';
+import Color from '../components/Color';
 export default function SingleProduct() {
     const [orderedProduct, setOrderedProduct] = useState<number>(1);
     const props = {
@@ -37,7 +38,7 @@ export default function SingleProduct() {
                                     Kids Headphones Bulk 10 Pack Multi Colored For Students
                                     </h3>
                                 </div>
-                                <div className='border-bottom'>
+                                <div className='border-bottom py-3'>
                                     <p className='price'>$ 100</p>
                                     <div className='d-flex align-items-center gap-10'>
                                     <ReactStars
@@ -47,9 +48,53 @@ export default function SingleProduct() {
                                         edit={false}
                                         activeColor='#FFD700'
                                     />
-                                    <p className='mb-0'>Based on 2 Reviews</p>
+                                    <p className='mb-0 t-review'>( 2 Reviews )</p>
                                     </div>
-                                    <a href="#review">Write a Review</a>
+                                    <a className='review-btn' href="#review">Write a Review</a>
+                                </div>
+                                <div className='border-bottom py-3'>
+                                    <div className='d-flex gap-10 align-items-center my-2'>
+                                        <h3 className='product-heading'>Type :</h3> <p className='product-data'>Watch</p>
+                                    </div>
+                                    <div className='d-flex gap-10 align-items-center my-2'>
+                                        <h3 className='product-heading'>Brand :</h3> <p className='product-data'>Havels</p>
+                                    </div>
+                                    <div className='d-flex gap-10 align-items-center my-2'>
+                                        <h3 className='product-heading'>Category :</h3> <p className='product-data'>Watch</p>
+                                    </div>
+                                    <div className='d-flex gap-10 align-items-center my-2'>
+                                        <h3 className='product-heading'>Tags :</h3> <p className='product-data'>Watch</p>
+                                    </div>
+                                    <div className='d-flex gap-10 align-items-center my-2'>
+                                        <h3 className='product-heading'>Availability :</h3> <p className='product-data'>In Stock</p>
+                                    </div>
+                                    <div className='d-flex gap-10 flex-column mt-2 mb-3'>
+                                        <h3 className='product-heading'>Size :</h3>
+                                        <div className='d-flex flex-wrap gap-15'>
+                                            <span className='badge border border-1 bg-white text-dark border-secondary text-uppercase'>s</span>
+                                            <span className='badge border border-1 bg-white text-dark border-secondary text-uppercase'>m</span>
+                                            <span className='badge border border-1 bg-white text-dark border-secondary text-uppercase'>xl</span>
+                                            <span className='badge border border-1 bg-white text-dark border-secondary text-uppercase'>xxl</span>
+                                        </div>
+                                        <div className='d-flex gap-10 flex-column mt-2 mb-32'>
+                                            <h3 className='product-heading'>Color :</h3>
+                                            <Color />
+                                        </div>
+                                        <div className='d-flex gap-10 flex-row mt-2 mb-3'>
+                                            <h3 className='product-heading'>Quantity :</h3>
+                                            <div className=''>
+                                                <input type="number" name="" id="" min={1} max={10} className='form-control' style={{width: '70px'}} />
+                                            </div>
+                                            <div className='d-flex align-items-center gap-30'>
+                                                <button className='button border-0' type='submit' >
+                                                    Login
+                                                </button>
+                                                <button className='button signup'>
+                                                    Signup
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -97,7 +142,7 @@ export default function SingleProduct() {
                                     )}
                                 </div>
                                 <div className='review-form py-4'>
-                                    <h4 className='mb-2'>Write a review</h4>
+                                    <h4 className='mb-2'>Write a Review</h4>
                                     <form action="" className="d-flex flex-column gap-15">
                                         <div>
                                         <ReactStars
