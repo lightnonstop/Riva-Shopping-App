@@ -3,14 +3,33 @@ import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import ProductCard from '../components/ProductCard';
 import ReactStars from 'react-rating-stars-component';
-import ReactImageZoom from 'react-image-zoom';
+import ReactImageMagnify from 'react-image-magnify';
 import Color from '../components/Color';
 export default function SingleProduct() {
     const [orderedProduct, setOrderedProduct] = useState<number>(1);
-    const props = {
-        width: 400, height: 500, zoomWidth: 500,
-        img: 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=600',
+    const productImage = 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=600';
+
+    const props =  {
+        smallImage: {
+            alt: 'Wristwatch',
+            isFluidWidth: true,
+            src: productImage,
+        },
+        largeImage: {
+            src: productImage,
+            width: 1129,
+            height: 800,
+        },
+        enlargedImageContainerClassName: 'product-magnified-image-cont',
+        enlargedImageClassName: 'product-magnified-image',
+        enlargedImagePosition: 'over',
+        hintTextMouse: 'Hover to zoom',
+        isHintEnabled: true,
+        shouldHideHintAfterFirstActivation: false,
+        fadeDurationInMs: 200,
+        hoverDelayInMs: 100,
     };
+
     return (
         <>
             <Meta title={`Product Name`} />
@@ -20,8 +39,10 @@ export default function SingleProduct() {
                     <div className='row'>
                         <div className='col-6'>
                             <div className='main-product-image'>
-                                <div>
-                                    <ReactImageZoom {...props} />
+                                <div className='image-magnify'>
+                                    <ReactImageMagnify
+                                    {...props}
+                                     />
                                 </div>
                             </div>
                             <div className='other-product-images  d-flex flex-wrap gap-15'>
@@ -80,17 +101,17 @@ export default function SingleProduct() {
                                             <h3 className='product-heading'>Color :</h3>
                                             <Color />
                                         </div>
-                                        <div className='d-flex gap-10 flex-row mt-2 mb-3'>
+                                        <div className='d-flex gap-10 align-items-center flex-row mt-2 mb-3'>
                                             <h3 className='product-heading'>Quantity :</h3>
                                             <div className=''>
                                                 <input type="number" name="" id="" min={1} max={10} className='form-control' style={{width: '70px'}} />
                                             </div>
-                                            <div className='d-flex align-items-center gap-30'>
-                                                <button className='button border-0' type='submit' >
-                                                    Login
+                                            <div className='d-flex align-items-center gap-30 ms-5'>
+                                                <button className='button border-0 text-capitalize' type='submit' >
+                                                    Add to Cart
                                                 </button>
-                                                <button className='button signup'>
-                                                    Signup
+                                                <button className='button signup text-capitalize'>
+                                                    Buy It Now
                                                 </button>
                                             </div>
                                         </div>
