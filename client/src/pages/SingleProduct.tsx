@@ -5,18 +5,20 @@ import ProductCard from '../components/ProductCard';
 import ReactStars from 'react-rating-stars-component';
 import ReactImageMagnify from 'react-image-magnify';
 import Color from '../components/Color';
+import { TbGitCompare } from 'react-icons/tb';
+import { AiOutlineHeart } from 'react-icons/ai';
 export default function SingleProduct() {
     const [orderedProduct, setOrderedProduct] = useState<number>(1);
-    const productImage = 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=600';
-
+    const productImageSource = 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=600';
+    const alt = 'Wristwatch';
     const props =  {
         smallImage: {
-            alt: 'Wristwatch',
+            alt: alt,
             isFluidWidth: true,
-            src: productImage,
+            src: productImageSource,
         },
         largeImage: {
-            src: productImage,
+            src: productImageSource,
             width: 1129,
             height: 800,
         },
@@ -28,6 +30,16 @@ export default function SingleProduct() {
         shouldHideHintAfterFirstActivation: false,
         fadeDurationInMs: 200,
         hoverDelayInMs: 100,
+    };
+
+    const copyToClipboard = (text: string) => {
+        console.log('text', text);
+        var textField = document.createElement('textarea');
+        textField.innerHTML = text;
+        document.body.appendChild(textField);
+        textField.select();
+        document.execCommand('copy');
+        textField.remove();
     };
 
     return (
@@ -115,6 +127,26 @@ export default function SingleProduct() {
                                                 </button>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div className='d-flex align-items-center gap-15'>
+                                        <div>
+                                            <a href="/"><TbGitCompare className='fs-5 me-2' /> Add to Compare</a>
+                                        </div>
+                                        <div>
+                                            <a href="/"><AiOutlineHeart className='fs-5 me-2' /> Add to WishList</a>
+                                        </div>
+                                    </div>
+                                    <div className='d-flex gap-10 align-items-center my-2'>
+                                        <p className='product-data'>
+                                            <h3 className='product-heading'>
+                                                Free shipping and returns available on all orders! <br />
+                                                We ship all US domestic orders within <b>5 - 10 business days!</b>
+                                            </h3>
+                                        </p>
+                                    </div>
+                                    <div className='d-flex gap-10 align-items-center my-2'>
+                                        <h3 className='product-heading'>Copy Product Link: </h3>
+                                        <a href="javascript:void()" onClick={() => {copyToClipboard(productImageSource)}}>{productImageSource}</a>
                                     </div>
                                 </div>
                             </div>
