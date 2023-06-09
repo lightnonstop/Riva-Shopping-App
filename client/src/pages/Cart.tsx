@@ -4,13 +4,13 @@ import Meta from "../components/Meta";
 import { watch } from '../images';
 import { AiFillDelete } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import Container from '../components/Container';
 export default function Cart() {
-  return (
-    <>
-         <Meta title="Cart" />
-        <BreadCrumb title="Cart" />
-        <section className='cart-wrapper home-wrapper-2 py-5'>
-            <div className='container-xxl'>
+    return (
+        <>
+            <Meta title="Cart" />
+            <BreadCrumb title="Cart" />
+            <Container containerClass='cart-wrapper home-wrapper-2 py-5'>
                 <div className="row">
                     <div className='col-12'>
                         <div className='cart-header 
@@ -53,7 +53,7 @@ export default function Cart() {
                         d-flex justify-content-between align-items-center'>
                             <div className='cart-col-1 gap-15 d-flex align-items-center'>
                                 <div className='w-25'>
-                                    <img className='img-fluid' src={watch} alt="product image" />
+                                    <img className='img-fluid' src={watch} alt="product" />
                                 </div>
                                 <div className='w-75'>
                                     <h5>fer3rDe</h5>
@@ -80,14 +80,13 @@ export default function Cart() {
                                 <div className='d-flex flex-column align-items-end'>
                                     <h4>SubTotal: $ 1000</h4>
                                     <p>Taxes and shipping calaculated at checkout</p>
-                                    <Link to='' className='button'>Checkout</Link>
+                                    <Link to='/checkout' className='button'>Checkout</Link>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </>
-  )
+            </Container>
+        </>
+    )
 }
