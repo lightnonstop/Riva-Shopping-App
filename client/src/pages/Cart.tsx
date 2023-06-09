@@ -74,8 +74,15 @@ export default function Cart() {
                             </div>
                             <div className='cart-col-4'>Total</div>
                         </div>
-                        <div className='col-12 py-2'>
-                            <Link to='/product' className='button'>Continue Shopping</Link>
+                        <div className='col-12 py-2 my-2 mt-4'>
+                            <div className='d-flex justify-content-between align-items-center'>
+                                <Link to='/product' className='button'>Continue Shopping</Link>
+                                <div className='d-flex flex-column align-items-end'>
+                                    <h4>SubTotal: $ 1000</h4>
+                                    <p>Taxes and shipping calaculated at checkout</p>
+                                    <Link to='' className='button'>Checkout</Link>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
