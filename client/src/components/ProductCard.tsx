@@ -7,8 +7,6 @@ type ProductCardProps = {
 }
 export default function ProductCard({ grid }: ProductCardProps) {
   let location = useLocation();
-  console.log(location.pathname);
-  
   return (
     <div className={location.pathname === '/product'
       ? `gr-${grid}`
