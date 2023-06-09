@@ -68,7 +68,7 @@ export default function Home() {
             <div className="services d-flex align-items-center justify-content-between">
               {
                 services?.map((service, index) => (
-                  <div className="d-flex align-items-center gap-15">
+                  <div key={index} className="d-flex align-items-center gap-15">
                     <img src={service.image} alt="service" />
                     <div>
                       <h6 className="text-capitalize">{service.title}</h6>
