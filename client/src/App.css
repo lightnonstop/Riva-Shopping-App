@@ -5,9 +5,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 800;
-}
 :root{
   --color-131921: #131921;
   --color-3B4149: #3B4149;
@@ -722,3 +719,14 @@ footer .input-group-text{
   color: var(--color-1C1C1B);
 }
 /* Cart Page Ends Here */
+
+/* Shipping Page */
+.total{
+  font-size: 14px;
+  color: var(--color-1C1C1B);
+}
+.total-price{
+  font-size: 16px;
+  color: var(--color-777777);
+}
+/* Shipping Page Ends Here */
