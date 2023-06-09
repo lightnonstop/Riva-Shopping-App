@@ -3,12 +3,13 @@ import Marquee from 'react-fast-marquee';
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/SpecialProduct";
+import Container from "../components/Container";
+import { services } from "../utils/data";
 export default function Home() {
   return (
     <>
-      <section className="home-wrapper-1 py-5">
-        <div className="container-xxl">
-          <div className="row">
+      <Container class1='home-wrapper-1 py-5'>
+        <div className="row">
             <div className="col-6">
               <div className="main-banner position-relative">
                 <img className="img-fluid rounded-3" src="/images/main-banner-1.jpg" alt="main banner" />
@@ -60,53 +61,26 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section className="home-wrapper-2 py-5">
-        <div className="container-xxl">
-          <div className="row">
-            <div className="col-12">
-              <div className="services d-flex align-items-center justify-content-between">
-                <div className="d-flex align-items-center gap-15">
-                  <img src="/images/service.png" alt="services" />
-                  <div>
-                    <h6 className="text-capitalize">free shipping</h6>
-                    <p className="mb-0">From all orders over $100</p>
+      </Container>
+      <Container class1='home-wrapper-2 py-5'>
+        <div className="row">
+          <div className="col-12">
+            <div className="services d-flex align-items-center justify-content-between">
+              {
+                services?.map((service, index) => (
+                  <div className="d-flex align-items-center gap-15">
+                    <img src={service.image} alt="service" />
+                    <div>
+                      <h6 className="text-capitalize">{service.title}</h6>
+                      <p className="mb-0">{service.tagline}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="d-flex align-items-center gap-15">
-                  <img src="/images/service-02.png" alt="services" />
-                  <div>
-                    <h6 className="text-capitalize">daily surprise offers</h6>
-                    <p className="mb-0">save up to 25% off</p>
-                  </div>
-                </div>
-                <div className="d-flex align-items-center gap-15">
-                  <img src="/images/service-03.png" alt="services" />
-                  <div>
-                    <h6 className="text-capitalize">support 24/7</h6>
-                    <p className="mb-0">Shop with an expert</p>
-                  </div>
-                </div>
-                <div className="d-flex align-items-center gap-15">
-                  <img src="/images/service-04.png" alt="services" />
-                  <div>
-                    <h6 className="text-capitalize">affordable prices</h6>
-                    <p className="mb-0">Get Factory direct price</p>
-                  </div>
-                </div>
-                <div className="d-flex align-items-center gap-15">
-                  <img src="/images/service-05.png" alt="services" />
-                  <div>
-                    <h6 className="text-capitalize">secure payments</h6>
-                    <p className="mb-0">100% Protected Payments</p>
-                  </div>
-                </div>
-              </div>
+                ))
+              }
             </div>
           </div>
         </div>
-      </section>
+      </Container>
       <section className="home-wrapper-2 py-5">
         <div className="container-xxl">
           <div className="row">
