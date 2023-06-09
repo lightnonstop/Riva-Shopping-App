@@ -1,25 +1,28 @@
 
 import ReactStars from 'react-rating-stars-component';
 import { Link, useLocation } from 'react-router-dom';
+import { prodcompare, wish, watch, watch2, addcart, view } from '../images';
 type ProductCardProps = {
   grid?: number;
 }
 export default function ProductCard({ grid }: ProductCardProps) {
-  let location = useLocation();  
+  let location = useLocation();
+  console.log(location.pathname);
+  
   return (
-    <div className={location.pathname === '/store'
+    <div className={location.pathname === '/product'
       ? `gr-${grid}`
       : 'col-3'
     }>
       <Link to=':id' className='product-card position-relative'>
         <div className='wishlist-icon position-absolute'>
-          <Link to=''>
-            <img src="/images/wish.svg" alt="wishlist" />
-          </Link>
+          <button className='border-0 bg-transparent'>
+            <img src={wish} alt="wishlist" />
+          </button>
         </div>
         <div className='product-image'>
-          <img className='img-fluid' src="/images/watch.jpg" alt="product" />
-          <img className='img-fluid' src="/images/watch-1.avif" alt="product" />
+          <img className='img-fluid' src={watch} alt="product" />
+          <img className='img-fluid' src={watch2} alt="product" />
         </div>
         <div className='product-details'>
           <h6 className='brand'>Havels</h6>
@@ -41,15 +44,15 @@ export default function ProductCard({ grid }: ProductCardProps) {
         </div>
         <div className='action-bar position-absolute'>
           <div className='d-flex flex-column gap-15'>
-            <Link to=''>
-              <img src="/images/prodcompare.svg" alt="compare" />
-            </Link>
-            <Link to=''>
-              <img src="/images/view.svg" alt="view" />
-            </Link>
-            <Link to=''>
-              <img src="/images/add-cart.svg" alt="add-cart" />
-            </Link>
+            <button className='border-0 bg-transparent'>
+              <img src={prodcompare} alt="compare" />
+            </button>
+            <button className='border-0 bg-transparent'>
+              <img src={view} alt="view" />
+            </button>
+            <button className='border-0 bg-transparent'>
+              <img src={addcart} alt="add-cart" />
+            </button>
           </div>
         </div>
       </Link>
