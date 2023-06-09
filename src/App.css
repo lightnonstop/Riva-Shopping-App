@@ -446,7 +446,7 @@ footer .input-group-text{
   display: block;
 }
 .gr-12 .product-card .product-image{
-  flex: 0.6;
+  width: 50%;
 }
 .gr-12 .product-card .product-image{
   height: auto;
