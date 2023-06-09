@@ -6,7 +6,7 @@ type ProductCardProps = {
   grid?: number;
 }
 export default function ProductCard({ grid }: ProductCardProps) {
-  let location = useLocation();
+  let location = useLocation();  
   return (
     <div className={location.pathname === '/product'
       ? `gr-${grid}`

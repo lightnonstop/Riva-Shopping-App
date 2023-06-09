@@ -13,7 +13,7 @@ export default function BlogCard() {
         <p className='desc'>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, mollitia! Exercitationem
         </p>
-        <Link to='' className="button">Read More</Link>
+        <Link to='/blog/:id' className="button">Read More</Link>
       </div>
     </div>
   )

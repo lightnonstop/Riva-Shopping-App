@@ -1,6 +1,6 @@
 import { BsGithub, BsInstagram, BsLinkedin, BsYoutube } from "react-icons/bs";
 import { Link } from "react-router-dom";
-
+import { newsletter } from "../images";
 export default function Footer() {
   return (
     <>
@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="row">
             <div className="col-5">
               <div className="footer-top-data d-flex gap-30 align-items-center">
-                <img src="/images/newsletter.png" alt="newsletter" />
+                <img src={newsletter} alt="newsletter" />
                 <h2 className="mb-0 text-white">Sign Up for the Newsletter</h2>
               </div>
             </div>
@@ -59,11 +59,11 @@ export default function Footer() {
             <div className="col-3">
               <h4 className="text-white mb-4">Information</h4>
               <div className="footer-links d-flex flex-column">
-                <Link className="text-white py-2 mb-1" to=''>Privacy Policy</Link>
-                <Link className="text-white py-2 mb-1" to=''>Refund Policy</Link>
-                <Link className="text-white py-2 mb-1" to=''>Shipping Policy</Link>
-                <Link className="text-white py-2 mb-1" to=''>Terms & Conditions</Link>
-                <Link className="text-white py-2 mb-1" to=''>Blogs</Link>
+                <Link to='/privacy-policy' className="text-white py-2 mb-1" >Privacy Policy</Link>
+                <Link to='/refund-policy' className="text-white py-2 mb-1" >Refund Policy</Link>
+                <Link to='/shipping-policy' className="text-white py-2 mb-1" >Shipping Policy</Link>
+                <Link to='/terms-conditions' className="text-white py-2 mb-1" >Terms & Conditions</Link>
+                <Link className="text-white py-2 mb-1" to='/blogs' >Blogs</Link>
               </div>
             </div>
             <div className="col-3">

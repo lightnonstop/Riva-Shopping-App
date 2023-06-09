@@ -6,6 +6,7 @@ import { default as watch2 } from '../images/watch-1.avif';
 import { default as addcart } from '../images/add-cart.svg';
 import { default as view } from '../images/view.svg';
 import { default as newsletter } from '../images/newsletter.png';
+import { default as blog } from '../images/blog-1.jpg';
 
 
 export {
@@ -17,4 +18,5 @@ export {
     addcart,
     view,
     newsletter,
+    blog,
 }

@@ -4,13 +4,13 @@ import Meta from "../components/Meta";
 import { Link } from 'react-router-dom';
 import { HiOutlineArrowLeft } from 'react-icons/hi';
 import { blog } from '../images';
+import Container from '../components/Container';
 export default function SingleBlog() {
-  return (
-    <>
-        <Meta title={`Dynamic blog name`} />
-        <BreadCrumb title={`Dynamic blog name`} />
-        <div className='blog-wrapper home-wrapper-2 pyc5'>
-            <div className='container-xxl'>
+    return (
+        <>
+            <Meta title={`Dynamic blog name`} />
+            <BreadCrumb title={`Dynamic blog name`} />
+            <Container containerClass='blog-wrapper home-wrapper-2 py-5'>
                 <div className='row'>
                     <div className='col-12'>
                         <div className='single-blog-card'>
@@ -24,8 +24,7 @@ export default function SingleBlog() {
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </>
-  )
+            </Container>
+        </>
+    )
 }
