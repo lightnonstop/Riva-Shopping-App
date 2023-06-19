@@ -1,24 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
-import Home from './pages/Home';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import OurStore from './pages/OurStore';
-import Blog from './pages/Blog';
-import CompareProduct from './pages/CompareProduct';
-import Wishlist from './pages/Wishlist';
-import Login from './pages/Login';
-import ForgotPassword from './pages/ForgotPassword';
-import Signup from './pages/Signup';
-import ResetPassword from './pages/ResetPassword';
-import SingleBlog from './pages/SingleBlog';
-import TermAndConditions from './pages/TermAndConditions';
-import ShippingPolicy from './pages/ShippingPolicy';
-import RefundPolicy from './pages/RefundPolicy';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import SingleProduct from './pages/SingleProduct';
-import Cart from './pages/Cart';
-import Checkout from './pages/Checkout';
+import { About, Blog, Cart, Checkout, CompareProduct, Contact, ForgotPassword, Home, Layout, Login, OurStore, PrivacyPolicy, RefundPolicy, ResetPassword, ShippingPolicy, Signup, SingleBlog, SingleProduct, TermAndConditions, Wishlist } from '.';
 function App() {
   return (
     <>
@@ -32,7 +13,7 @@ function App() {
             <Route path='/product/:id' element={<SingleProduct />} />
             <Route path='blogs' element={<Blog />} />
             <Route path='blog/:id' element={<SingleBlog />} />
-            <Route path='cart' element={<Cart/>} />
+            <Route path='cart' element={<Cart />} />
             <Route path='checkout' element={<Checkout/>} />
             <Route path='compare-product' element={<CompareProduct />} />
             <Route path='wishlist' element={<Wishlist />} />
