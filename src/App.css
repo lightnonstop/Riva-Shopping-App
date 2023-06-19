@@ -730,3 +730,10 @@ footer .input-group-text{
   color: var(--color-777777);
 }
 /* Shipping Page Ends Here */
+.error{
+  color: #fc0043;
+  font-size: 12px;
+  margin-top: -13px;
+  margin-left: 4px;
+  letter-spacing: 1.2;
+}
