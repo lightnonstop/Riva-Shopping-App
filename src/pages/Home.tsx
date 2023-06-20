@@ -1,22 +1,32 @@
-import { Link } from "react-router-dom";
+import ReactStars from 'react-rating-stars-component';
+import { Link, useNavigate } from 'react-router-dom';
+import { prodcompare, wish, watch, watch2, addcart, view } from '../images';
+import { addProductToWishlist } from '../features/product/productSlice';
 import Marquee from 'react-fast-marquee';
 import BlogCard from "../components/BlogCard";
-import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/SpecialProduct";
 import Container from "../components/Container";
 import { services } from "../utils/data";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useEffect } from "react";
 import { getAllBlogs } from "../features/blog/blogSlice";
-// import { moment } from "moment";
+import moment from "moment";
+import { getAllProducts } from "../features/product/productSlice";
 export default function Home() {
   const dispatch = useAppDispatch();
-    const blogs = useAppSelector(state => state.blog.blogs);
+  const blogs = useAppSelector(state => state.blog.blogs);
+  const products = useAppSelector(state => state.product.products)
+  const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(getAllBlogs())
+  }, [dispatch])
 
-    
-    useEffect(() => {
-        dispatch(getAllBlogs())
-    }, [dispatch])
+  useEffect(() => {
+    dispatch(getAllProducts())
+  }, [dispatch]);
+  const addToWishList = (id: { prodId: string; }) => {
+    dispatch(addProductToWishlist(id))
+  }
   return (
     <>
       <Container containerClass='home-wrapper-1 py-5'>
@@ -184,10 +194,51 @@ export default function Home() {
           <div className="col-12">
             <h3 className="section-heading">Featured Collection</h3>
           </div>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {
+            products?.map((item, index) => (
+              item.tag === 'featured' &&
+              <div key={index} className='col-3'>
+                <div className='product-card position-relative'>
+                  <div className='wishlist-icon position-absolute'>
+                    <button className='border-0 bg-transparent' onClick={() => addToWishList({ prodId: item._id })}>
+                      <img src={wish} alt="wishlist" />
+                    </button>
+                  </div>
+                  <div className='product-image'>
+                    <img className='img-fluid' src={watch} alt="product" />
+                    <img className='img-fluid' src={watch2} alt="product" />
+                  </div>
+                  <div className='product-details'>
+                    <h6 className='brand'>Havels</h6>
+                    <h5 className='product-title'>
+                      {item.title}
+                    </h5>
+                    <ReactStars
+                      count={5}
+                      size={24}
+                      value={Number(item.totalRating)}
+                      edit={false}
+                      activeColor='#FFD700'
+                    />
+                    <p className='price'>{`$ ${item.price}`}</p>
+                  </div>
+                  <div className='action-bar position-absolute'>
+                    <div className='d-flex flex-column gap-15'>
+                      <button className='border-0 bg-transparent'>
+                        <img src={prodcompare} alt="compare" />
+                      </button>
+                      <button className='border-0 bg-transparent'>
+                        <img onClick={() => navigate(`/product/${item._id}`)} src={view} alt="view" />
+                      </button>
+                      <button className='border-0 bg-transparent'>
+                        <img src={addcart} alt="add-cart" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
         </div>
       </Container>
       <Container containerClass="famous-wrapper py-5 home-wrapper-2">
@@ -244,9 +295,20 @@ export default function Home() {
           </div>
         </div>
         <div className="row">
-          <SpecialProduct />
-          <SpecialProduct />
-          <SpecialProduct />
+          {
+            products?.map((item, index) => (
+              item.tag === 'special' && <SpecialProduct
+                key={index}
+                title={item.title}
+                brand={item.brand}
+                totalRating={Number(item.totalRating)}
+                price={item.price}
+                sold={item.sold}
+                id={item._id}
+                quantity={item.quantity}
+              />
+            ))
+          }
         </div>
       </Container>
       <Container containerClass="popular-wrapper py-5 home-wrapper-2">
@@ -255,10 +317,51 @@ export default function Home() {
             <h3 className="section-heading">Our Popular Products</h3>
           </div>
           <div className="row">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            {
+              products?.map((item, index) => (
+                item.tag === 'popular' && <div key={index} className='col-3'>
+                  <div 
+                    className='product-card position-relative'>
+                    <div className='wishlist-icon position-absolute'>
+                      <button className='border-0 bg-transparent' onClick={() => addToWishList({ prodId: item._id })}>
+                        <img src={wish} alt="wishlist" />
+                      </button>
+                    </div>
+                    <div className='product-image'>
+                      <img className='img-fluid' src={watch} alt="product" />
+                      <img className='img-fluid' src={watch2} alt="product" />
+                    </div>
+                    <div className='product-details'>
+                      <h6 className='brand'>Havels</h6>
+                      <h5 className='product-title'>
+                        {item.title}
+                      </h5>
+                      <ReactStars
+                        count={5}
+                        size={24}
+                        value={Number(item.totalRating)}
+                        edit={false}
+                        activeColor='#FFD700'
+                      />
+                      <p className='price'>{`$ ${item.price}`}</p>
+                    </div>
+                    <div className='action-bar position-absolute'>
+                      <div className='d-flex flex-column gap-15'>
+                        <button className='border-0 bg-transparent'>
+                          <img src={prodcompare} alt="compare" />
+                        </button>
+                        <button className='border-0 bg-transparent'>
+                          <img onClick={() => navigate(`/product/${item._id}`)} src={view} alt="view" />
+                        </button>
+                        <button className='border-0 bg-transparent'>
+                          <img src={addcart} alt="add-cart" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
           </div>
         </div>
       </Container>
@@ -303,14 +406,14 @@ export default function Home() {
           </div>
           <div className="col-12">
             <div className="d-flex align-items-center gap-15">
-            {
+              {
                 blogs?.map((blogItem, index) => {
-                  if (index < 4){
+                  if (index < 4) {
                     return (
                       <div className="col-3" key={index}>
                         <BlogCard id={blogItem._id} title={blogItem.title} description={blogItem.description} image={blogItem.images[0].url}
-                          date={blogItem.createdAt}
-                        //date={moment(blogItem.createdAt).format("MMMM Do YYYY, h:mm a")}
+
+                          date={moment(blogItem.createdAt).format("MMMM Do YYYY, h:mm a")}
                         />
                       </div>
                     )
