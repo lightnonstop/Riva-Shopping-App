@@ -2,13 +2,29 @@
 import ReactStars from 'react-rating-stars-component';
 import { Link, useLocation } from 'react-router-dom';
 import { prodcompare, wish, watch, watch2, addcart, view } from '../images';
+import { addProductToWishlist } from '../features/product/productSlice';
+import { useAppDispatch } from '../app/hooks';
 type ProductCardProps = {
   grid?: number;
+  data: { 
+    _id: string
+    title:string
+    totalRating: string
+    price: string
+    description: string
+   }[]
 }
-export default function ProductCard({ grid }: ProductCardProps) {
-  let location = useLocation();  
+export default function ProductCard({ grid, data }: ProductCardProps) {
+  const location = useLocation();
+  const dispatch = useAppDispatch();
+  const addToWishList = (id: { prodId: string; }) => {
+    dispatch(addProductToWishlist(id))
+  }
   return (
-    <div className={location.pathname === '/product'
+    <>
+      {
+        data?.map((item, index) => (
+          <div key={index} className={location.pathname === '/product'
       ? `gr-${grid}`
       : 'col-3'
     }>
@@ -16,9 +32,10 @@ export default function ProductCard({ grid }: ProductCardProps) {
     ? '/product/:id'
     : location.pathname === '/product/:id'
     ? '/product/:id'
-    : ':id'} className='product-card position-relative'>
+    : ':id'} 
+    className='product-card position-relative'>
         <div className='wishlist-icon position-absolute'>
-          <button className='border-0 bg-transparent'>
+          <button className='border-0 bg-transparent' onClick={() => addToWishList({ prodId: item._id })}>
             <img src={wish} alt="wishlist" />
           </button>
         </div>
@@ -29,20 +46,20 @@ export default function ProductCard({ grid }: ProductCardProps) {
         <div className='product-details'>
           <h6 className='brand'>Havels</h6>
           <h5 className='product-title'>
-            Kids headphones coloured for students
+            {item.title}
           </h5>
           <ReactStars
             count={5}
             size={24}
-            value={3}
+            value={Number(item.totalRating)}
             edit={false}
             activeColor='#FFD700'
            />
            <p className={`description ${grid === 12 
            ? 'd-block'
            : 'd-none'
-          }`}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius ducimus doloremque minima suscipit neque, distinctio est, nisi assumenda similique aspernatur odit! Consequuntur, quis. Sit assumenda illo minima, facilis sint magnam...</p>
-          <p className="price">$100.00</p>
+          }`} dangerouslySetInnerHTML={{ __html: item?.description }}></p>
+          <p className='price'>{`$ ${item.price}`}</p>
         </div>
         <div className='action-bar position-absolute'>
           <div className='d-flex flex-column gap-15'>
@@ -58,6 +75,10 @@ export default function ProductCard({ grid }: ProductCardProps) {
           </div>
         </div>
       </Link>
-    </div>
+          </div>
+        ))
+      }
+      
+    </>
   )
 } 
