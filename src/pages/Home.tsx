@@ -5,7 +5,18 @@ import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/SpecialProduct";
 import Container from "../components/Container";
 import { services } from "../utils/data";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useEffect } from "react";
+import { getAllBlogs } from "../features/blog/blogSlice";
+// import { moment } from "moment";
 export default function Home() {
+  const dispatch = useAppDispatch();
+    const blogs = useAppSelector(state => state.blog.blogs);
+
+    
+    useEffect(() => {
+        dispatch(getAllBlogs())
+    }, [dispatch])
   return (
     <>
       <Container containerClass='home-wrapper-1 py-5'>
@@ -287,15 +298,25 @@ export default function Home() {
       </Container>
       <Container containerClass="blog-wrapper py-5 home-wrapper-2">
         <div className="row">
-          <div className="col-12">
+          <div className="col-3">
             <h3 className="section-heading">Our Latest Feed</h3>
           </div>
           <div className="col-12">
             <div className="d-flex align-items-center gap-15">
-              <BlogCard />
-              <BlogCard />
-              <BlogCard />
-              <BlogCard />
+            {
+                blogs?.map((blogItem, index) => {
+                  if (index < 4){
+                    return (
+                      <div className="col-3" key={index}>
+                        <BlogCard id={blogItem._id} title={blogItem.title} description={blogItem.description} image={blogItem.images[0].url}
+                          date={blogItem.createdAt}
+                        //date={moment(blogItem.createdAt).format("MMMM Do YYYY, h:mm a")}
+                        />
+                      </div>
+                    )
+                  }
+                })
+              }
             </div>
           </div>
         </div>
