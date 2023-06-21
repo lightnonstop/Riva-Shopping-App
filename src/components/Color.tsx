@@ -4,9 +4,11 @@ type ColorProps = {
 export default function Color({ data }: ColorProps) {
     return (
         <ul className="colors ps-0">
-            <li></li>
-            <li></li>
-            <li></li>
+            {
+                data && data.map(color => (
+                    <li style={{ backgroundColor: color.title }}></li>
+                ))
+            }
         </ul>
     )
 }
