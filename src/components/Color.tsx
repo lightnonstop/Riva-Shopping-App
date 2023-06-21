@@ -1,5 +1,5 @@
 type ColorProps = {
-    data: { title: string }[]
+    data: { title: string }[] | undefined
 }
 export default function Color({ data }: ColorProps) {
     return (
