@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import ProductCard from '../components/ProductCard';
@@ -8,10 +7,57 @@ import Color from '../components/Color';
 import { TbGitCompare } from 'react-icons/tb';
 import { AiOutlineHeart } from 'react-icons/ai';
 import Container from '../components/Container';
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { getAProduct } from "../features/product/productSlice";
+import { toast } from "react-toastify";
+import { addProductToCart, getUserCart } from "../features/user/userSlice";
 export default function SingleProduct() {
+
+    const location = useLocation();
+    const productId = location.pathname.split('/')[2]
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    const product = useAppSelector(state => state.product.product)
     const [orderedProduct, setOrderedProduct] = useState<number>(1);
-    const productImageSource = 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=600';
+
+    const [color,setColor] = useState<null | string>(null);
+    const [quantity,setQuantity] = useState<number>(0);
+    const [addedToCart,setAddedToCart] = useState<boolean>(false);
+
+    const cart = useAppSelector(state => state.auth.productCart)
+    
+    const productImageSource = product?.images[0].url;
     const alt = 'Wristwatch';
+    useEffect(() => {
+        dispatch(getAProduct(productId))
+        dispatch(getUserCart())
+    }, [dispatch, productId])
+
+    useEffect(() => {
+        if (cart){
+            for (let  i = 0; i < cart?.length; i++){
+                if (productId === cart[i].product?._id){
+                    setAddedToCart(true);
+                }
+            }
+        }
+    }, [cart, productId])
+
+    function uploadToCart(){
+        if (color == null){
+            toast.error('Please choose a color')
+        } else {
+            dispatch(addProductToCart({
+                product: product?._id,
+                quantity,
+                color,
+                price: product?.price,
+            }))
+        }
+    }
     const props = {
         smallImage: {
             alt: alt,
@@ -34,7 +80,7 @@ export default function SingleProduct() {
     };
 
     const copyToClipboard = (text: string) => {
-        var textField = document.createElement('textarea');
+        const textField = document.createElement('textarea');
         textField.innerHTML = text;
         document.body.appendChild(textField);
         textField.select();
@@ -67,16 +113,17 @@ export default function SingleProduct() {
                         <div className='main-product-details'>
                             <div className='border-bottom'>
                                 <h3 className="title">
-                                    Kids Headphones Bulk 10 Pack Multi Colored For Students
+                                    {product?.title}
                                 </h3>
                             </div>
                             <div className='border-bottom py-3'>
-                                <p className='price'>$ 100</p>
+                                <p className='price'>{`$ ${product?.price}`}</p>
                                 <div className='d-flex align-items-center gap-10'>
                                     <ReactStars
                                         count={5}
                                         size={24}
-                                        value={3}
+                                        value={Number(product?.totalRating) ? Number(product?.totalRating) : console.log(product?.totalRating)
+                                        }
                                         edit={false}
                                         activeColor='#FFD700'
                                     />
@@ -89,13 +136,13 @@ export default function SingleProduct() {
                                     <h3 className='product-heading'>Type :</h3> <p className='product-data'>Watch</p>
                                 </div>
                                 <div className='d-flex gap-10 align-items-center my-2'>
-                                    <h3 className='product-heading'>Brand :</h3> <p className='product-data'>Havels</p>
+                                    <h3 className='product-heading'>Brand :</h3> <p className='product-data'>{`${product?.brand}`}</p>
                                 </div>
                                 <div className='d-flex gap-10 align-items-center my-2'>
-                                    <h3 className='product-heading'>Category :</h3> <p className='product-data'>Watch</p>
+                                    <h3 className='product-heading'>Category :</h3> <p className='product-data'>{`${product?.category}`}</p>
                                 </div>
                                 <div className='d-flex gap-10 align-items-center my-2'>
-                                    <h3 className='product-heading'>Tags :</h3> <p className='product-data'>Watch</p>
+                                    <h3 className='product-heading'>Tag :</h3> <p className='product-data'>{`${product?.tag}`}</p>
                                 </div>
                                 <div className='d-flex gap-10 align-items-center my-2'>
                                     <h3 className='product-heading'>Availability :</h3> <p className='product-data'>In Stock</p>
@@ -110,16 +157,20 @@ export default function SingleProduct() {
                                     </div>
                                     <div className='d-flex gap-10 flex-column mt-2 mb-32'>
                                         <h3 className='product-heading'>Color :</h3>
-                                        <Color />
+                                        <Color setColor={setColor} data={product?.color} />
                                     </div>
                                     <div className='d-flex gap-10 align-items-center flex-row mt-2 mb-3'>
                                         <h3 className='product-heading'>Quantity :</h3>
                                         <div className=''>
-                                            <input type="number" name="" id="" min={1} max={10} className='form-control' style={{ width: '70px' }} />
+                                            <input type="number" name="" id="" min={1} max={10} className='form-control' style={{ width: '70px' }} value={quantity} onChange= {(e) => setQuantity(Number(e.target.value))} />
                                         </div>
                                         <div className='d-flex align-items-center gap-30 ms-5'>
-                                            <button className='button border-0 text-capitalize' type='submit' >
-                                                Add to Cart
+                                            <button className='button border-0 text-capitalize' type='submit' onClick={() => addedToCart 
+                                                ? navigate('/cart') 
+                                                : uploadToCart()}>
+                                                {addedToCart 
+                                                ? "Go to cart" 
+                                                : "Add to Cart"}
                                             </button>
                                             <button className='button signup text-capitalize'>
                                                 Buy It Now
@@ -156,9 +207,7 @@ export default function SingleProduct() {
                     <div className='col-12'>
                         <h4>Description</h4>
                         <div className='bg-white p-3'>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, placeat, nihil excepturi earum sed neque quia nam deleniti necessitatibus voluptate repudiandae. Exercitationem ducimus temporibus atque blanditiis. Nobis sint veniam placeat!
-                            </p>
+                            <p dangerouslySetInnerHTML={{ __html: product?.description.substring(0,) + '' }}></p>
                         </div>
                     </div>
                 </div>
@@ -175,7 +224,7 @@ export default function SingleProduct() {
                                         <ReactStars
                                             count={5}
                                             size={24}
-                                            value={3}
+                                            value={4}
                                             edit={false}
                                             activeColor='#FFD700'
                                         />
