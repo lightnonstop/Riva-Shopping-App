@@ -144,7 +144,7 @@ export default function SingleProduct() {
                                 </div>
                                 <div className='d-flex gap-10 align-items-center my-3'>
                                     <h3 className='product-heading'>Product Link: </h3>
-                                    <a href="javascript:void(0);" onClick={() => { copyToClipboard(productImageSource) }}>Copy Product Link</a>
+                                    <a href="javascript:void(0);" onClick={() => { copyToClipboard(window.location.href) }}>Copy Product Link</a>
                                 </div>
                             </div>
                         </div>
