@@ -41,7 +41,7 @@ a{
   font-size: 14px;
   padding: 13px 33px;
   border-radius: 30px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 .button:hover{
   background-color: var(--color-FEBD69);
