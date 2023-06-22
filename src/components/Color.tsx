@@ -5,8 +5,6 @@ type ColorProps = {
     setColor: Dispatch<SetStateAction<string | null>>
 }
 export default function Color({ data, setColor }: ColorProps) {
-    console.log(data);
-    
     return (
         <ul className="colors ps-0">
             {
