@@ -43,7 +43,7 @@ export const removeItemFromCart = createAsyncThunk('user/cart/delete', async(id:
         return thunkAPI.rejectWithValue(error)
     }
 })
-export const updateCartItemQty = createAsyncThunk('user/cart/update-quantity', async(cartItemDetail: { id: string | undefined; itemQty: string; } | undefined, thunkAPI) => {
+export const updateCartItemQty = createAsyncThunk('user/cart/update-quantity', async(cartItemDetail: { id: string; itemQty: string; } | undefined, thunkAPI) => {
     try {
         return await authService.updateQty(cartItemDetail)
     } catch (error){
