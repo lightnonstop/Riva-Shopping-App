@@ -29,6 +29,7 @@ const getWishlist = async() => {
 }
 
 export type cartDataProps = {
+    images: [{ url: string }];
     _id?: string;
     title?: string;
     product: string | undefined
