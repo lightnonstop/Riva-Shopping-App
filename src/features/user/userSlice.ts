@@ -62,7 +62,8 @@ type initialStateProps = {
     productCart?: {
         color: { title: string }
         _id?: string;
-        product: cartDataProps 
+        product: cartDataProps
+        quantity: number; 
 }[]
     removeCartItem?: object
     updatedCartItem?: object
