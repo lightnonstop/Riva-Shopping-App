@@ -60,6 +60,7 @@ type initialStateProps = {
     wishlist?: {wishlist: any}
     addedProduct?: object
     productCart?: {
+        price: number
         color: { title: string }
         _id?: string;
         product: cartDataProps
