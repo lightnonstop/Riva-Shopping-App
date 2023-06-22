@@ -6,13 +6,24 @@ import { AiFillDelete } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import Container from '../components/Container';
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getUserCart, removeItemFromCart } from "../features/user/userSlice";
 import ItemQtyInput from "../components/ItemQtyInput";
 export default function Cart() {
     const dispatch = useAppDispatch();
     const cart = useAppSelector(state => state.auth.productCart)
-    
+
+    const [cartTotal, setCartTotal] = useState<number | undefined>(0);
+
+    const handleCartTotal = useCallback((appCart: typeof cart) => {
+        return appCart?.map(cartItem => {
+          return cartItem.price * cartItem.quantity;
+        }).reduce((curr, next) => {return (curr + next)})
+    }, [])
+    useEffect(() => {
+      setCartTotal(handleCartTotal(cart))
+    }, [cart, handleCartTotal])
+
     useEffect(() => {
         dispatch(getUserCart())
     }, [dispatch])
@@ -77,7 +88,7 @@ export default function Cart() {
                             <div className='d-flex justify-content-between align-items-center'>
                                 <Link to='/product' className='button'>Continue Shopping</Link>
                                 <div className='d-flex flex-column align-items-end'>
-                                    <h4>SubTotal: $ </h4>
+                                    <h4>SubTotal: $ {cartTotal}</h4>
                                     <p>Taxes and shipping calaculated at checkout</p>
                                     <Link to='/checkout' className='button'>Checkout</Link>
                                 </div>
