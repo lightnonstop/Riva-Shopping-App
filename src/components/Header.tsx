@@ -1,6 +1,22 @@
 import { NavLink, Link } from "react-router-dom";
 import { BsSearch } from 'react-icons/bs';
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useEffect, useState } from "react";
+import { getUserCart } from "../features/user/userSlice";
 export default function Header() {
+  const dispatch = useAppDispatch();
+  const cart = useAppSelector(state => state.auth.productCart)
+  const [itemCount, setItemCount] = useState<number | undefined>(0);
+  const [cartTotal, setCartTotal] = useState<number | undefined>(0);
+  useEffect(() => {
+    setItemCount(cart?.length)
+    setCartTotal(cart?.map(cartItem => {
+      return cartItem.price * cartItem.quantity;
+    }).reduce((curr, next) => {return (curr + next)}))
+  }, [cart])
+  useEffect(() => {
+    dispatch(getUserCart())
+  }, [dispatch])
   return (
     <>
       <header className="header-top-strip py-3">
@@ -68,8 +84,8 @@ export default function Header() {
                   <Link to='/cart' className="d-flex align-items-center gap-10 text-white">
                   <img src="/images/cart.svg" alt="" />
                     <div className="d-flex flex-column gap-10">
-                      <span className="badge bg-white text-dark">0</span>
-                      <p>$ 500</p>
+                      <span className="badge bg-white text-dark">{itemCount}</span>
+                      <p>$ {cartTotal}</p>
                     </div>
                   </Link>
                 </div>
