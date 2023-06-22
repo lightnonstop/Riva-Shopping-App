@@ -43,7 +43,7 @@ export const removeItemFromCart = createAsyncThunk('user/cart/delete', async(id:
         return thunkAPI.rejectWithValue(error)
     }
 })
-export const updateCartItemQty = createAsyncThunk('user/cart/update-quantity', async(cartItemDetail: {id: string, itemQty: string}, thunkAPI) => {
+export const updateCartItemQty = createAsyncThunk('user/cart/update-quantity', async(cartItemDetail: { id: string | undefined; itemQty: string; } | undefined, thunkAPI) => {
     try {
         return await authService.updateQty(cartItemDetail)
     } catch (error){
@@ -209,9 +209,6 @@ export const authSlice = createSlice({
                 state.isSuccessfull = true;
                 state.error = false;
                 state.updatedCartItem = action.payload;
-                if (state.isSuccessfull){
-                    toast.success('Item quantity added successfully')
-                }
             })
             .addCase(updateCartItemQty.rejected, (state, action) => {
                 state.isLoading = false;
