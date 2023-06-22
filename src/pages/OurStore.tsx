@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BreadCrumb from "../components/BreadCrumb";
 import Meta from "../components/Meta";
 import ReactStars from 'react-rating-stars-component';
@@ -6,8 +6,16 @@ import ProductCard from "../components/ProductCard";
 import FilterCard from "../components/FilterCard";
 import Color from "../components/Color";
 import Container from "../components/Container";
+import { getAllProducts } from "../features/product/productSlice";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 export default function OurStore() {
   const [grid, setGrid] = useState<number>(4);
+  const dispatch = useAppDispatch();
+  const products = useAppSelector(state => state.product.products)
+  
+  useEffect(() => {
+    dispatch(getAllProducts())
+  }, [dispatch])
   return (
     <>
       <Meta title="Our Store" />
@@ -75,7 +83,7 @@ export default function OurStore() {
             <div className="filter-card mb-3">
               <h3 className="filter-title">Product Tag</h3>
               <div>
-                <div className="product-tags d-flex flex-wrap align-items-center gap-10">
+                <div className="product-tag d-flex flex-wrap align-items-center gap-10">
                   <span className="badge bg-light text-secondary rounded-3 py-2 px-3">Headphone</span>
 
                   <span className="badge bg-light text-secondary rounded-3 py-2 px-3">Laptop</span>
@@ -154,17 +162,7 @@ export default function OurStore() {
               </div>
             </div>
             <div className="products-list pb-5 d-flex flex-wrap gap-10 align-items-center">
-              <ProductCard grid={grid} />
-              <ProductCard grid={grid} />
-              <ProductCard grid={grid} />
-              <ProductCard grid={grid} />
-              <ProductCard grid={grid} />
-              <ProductCard grid={grid} />
-              <ProductCard grid={grid} />
-              <ProductCard grid={grid} />
-              <ProductCard grid={grid} />
-              <ProductCard grid={grid} />
-              <ProductCard grid={grid} />
+              <ProductCard grid={grid} data={products} />
             </div>
           </div>
         </div>

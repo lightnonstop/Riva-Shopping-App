@@ -1,8 +1,15 @@
 import { SerializedError, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { productService } from "./productService"
-export const getAllProducts= createAsyncThunk('products/get', async(_, thunkAPI) => {
+export const getAllProducts= createAsyncThunk('products/getAllProducts', async(_, thunkAPI) => {
     try {
         return await productService.getProducts();
+    } catch (error){
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+export const getAProduct= createAsyncThunk('product/getASingleProduct', async(id: string, thunkAPI) => {
+    try {
+        return await productService.getProduct(id);
     } catch (error){
         return thunkAPI.rejectWithValue(error)
     }
@@ -19,27 +26,33 @@ export interface productProps{
     _id: string
     title:string
     totalRating: string
-    price: string
+    price: number
     description: string
-    tag?: string;
+    tag?: string
+    sold: number
+    quantity: number
+    category: string
+    images: {url: string}[]
+    color: { title: string; _id: string; }[]
 }
 type initialStateProps = {
-    product: productProps[]
+    products: productProps[]
     error: boolean
     isSuccessfull: boolean
     isLoading: boolean
     message?: SerializedError
     productAddedToWishlist?: object
+    product?: productProps;
 }
 const initialState: initialStateProps = {
-    product: [],
+    products: [],
     error: false,
     isSuccessfull: false,
     isLoading: false,
 }
 
 export const productSlice = createSlice({
-    name: 'product',
+    name: 'products',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
@@ -51,12 +64,12 @@ export const productSlice = createSlice({
                 state.isLoading = false;
                 state.isSuccessfull = true;
                 state.error = false;
-                state.product = action.payload;
+                state.products = action.payload;
             })
             .addCase(getAllProducts.rejected, (state, action) => {
                 state.isLoading = false;
-                state.isSuccessfull = true;
-                state.error = false;
+                state.isSuccessfull = false;
+                state.error = true;
                 state.message = action.error;
             })
 
@@ -71,8 +84,24 @@ export const productSlice = createSlice({
             })
             .addCase(addProductToWishlist.rejected, (state, action) => {
                 state.isLoading = false;
+                state.isSuccessfull = false;
+                state.error = true;
+                state.message = action.error;
+            })
+
+            .addCase(getAProduct.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(getAProduct.fulfilled, (state, action) => {
+                state.isLoading = false;
                 state.isSuccessfull = true;
                 state.error = false;
+                state.product = action.payload;
+            })
+            .addCase(getAProduct.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isSuccessfull = false;
+                state.error = true;
                 state.message = action.error;
             })
     }

@@ -1,19 +1,24 @@
 
 import { Link } from 'react-router-dom'
-
-export default function BlogCard() {
+type BlogCardProps = {
+  title: string
+  description: string
+  image: string
+  id: string
+  date: string
+}
+export default function BlogCard({ title, description, image, id, date, }: BlogCardProps) {
   return (
-    <div className='blog-card'>
+    <div className='blog-card' id={id}>
       <div className='card-image'>
-        <img src="/images/blog-1.jpg" className='img-fluid w-100' alt="blog" />
+        <img src={image} className='img-fluid w-100' alt="blog" />
       </div>
       <div className='blog-content'>
-        <p className='date'>29 May, 2023</p>
-        <h5 className='title'>A beautiful sunday morning renaissance</h5>
-        <p className='desc'>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, mollitia! Exercitationem
+        <p className='date'>{date}</p>
+        <h5 className='title'>{title}</h5>
+        <p className='desc' dangerouslySetInnerHTML={{ __html: description?.substring(0, 90) + '...' }}>
         </p>
-        <Link to='/blog/:id' className="button">Read More</Link>
+        <Link to={`/blog/${id}`} className="button">Read More</Link>
       </div>
     </div>
   )

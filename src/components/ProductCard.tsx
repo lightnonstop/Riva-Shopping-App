@@ -2,17 +2,11 @@
 import ReactStars from 'react-rating-stars-component';
 import { Link, useLocation } from 'react-router-dom';
 import { prodcompare, wish, watch, watch2, addcart, view } from '../images';
-import { addProductToWishlist } from '../features/product/productSlice';
+import { addProductToWishlist, productProps } from '../features/product/productSlice';
 import { useAppDispatch } from '../app/hooks';
 type ProductCardProps = {
   grid?: number;
-  data: { 
-    _id: string
-    title:string
-    totalRating: string
-    price: string
-    description: string
-   }[]
+  data: productProps[]
 }
 export default function ProductCard({ grid, data }: ProductCardProps) {
   const location = useLocation();
@@ -22,17 +16,13 @@ export default function ProductCard({ grid, data }: ProductCardProps) {
   }
   return (
     <>
-      {
+      { data &&
         data?.map((item, index) => (
           <div key={index} className={location.pathname === '/product'
       ? `gr-${grid}`
       : 'col-3'
     }>
-      <Link to={location.pathname === '/'
-    ? '/product/:id'
-    : location.pathname === '/product/:id'
-    ? '/product/:id'
-    : ':id'} 
+      <div
     className='product-card position-relative'>
         <div className='wishlist-icon position-absolute'>
           <button className='border-0 bg-transparent' onClick={() => addToWishList({ prodId: item._id })}>
@@ -66,15 +56,15 @@ export default function ProductCard({ grid, data }: ProductCardProps) {
             <button className='border-0 bg-transparent'>
               <img src={prodcompare} alt="compare" />
             </button>
-            <button className='border-0 bg-transparent'>
+            <Link to={`/product/${item._id}`} className='border-0 bg-transparent'>
               <img src={view} alt="view" />
-            </button>
+            </Link>
             <button className='border-0 bg-transparent'>
               <img src={addcart} alt="add-cart" />
             </button>
           </div>
         </div>
-      </Link>
+      </div>
           </div>
         ))
       }

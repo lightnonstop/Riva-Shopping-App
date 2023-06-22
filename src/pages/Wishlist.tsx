@@ -3,15 +3,15 @@ import Meta from "../components/Meta";
 import Container from '../components/Container';
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { getUserWishlist } from "../features/user/userSlice";
-import { useEffect } from "react";
 import { addProductToWishlist } from "../features/product/productSlice";
+import { useEffect } from "react";
 export default function Wishlist() {
     const dispatch = useAppDispatch();
     const wishlist = useAppSelector(state => state.auth.wishlist?.wishlist);
 
     useEffect(() => {
         dispatch(getUserWishlist())
-    }, [])
+    }, [dispatch])
     const removeFromWishlist = (id: { prodId: string; }) => {
         dispatch(addProductToWishlist(id))
         setTimeout(() => {
@@ -23,14 +23,14 @@ export default function Wishlist() {
             <Meta title="Wishlist" />
             <BreadCrumb title="Wishlist" />
             <Container containerClass='wishlist-wrapper home-wrapper-2 py-5'>
-                <div className='row text-center fs-3'>
+                <div className='row'>
                     {wishlist?.length === 0 && (
-                        <div>
+                        <div className="text-center fs-3">
                             No data
                         </div>
                     )}
                     {
-                        wishlist?.map((product, index: string) => (
+                        wishlist?.map((product: { _id: string; images: (string | undefined)[]; title: string; price: number; }, index: string) => (
                             <div key={index} className='col-3'>
                                 <div className='wishlist-card position-relative'>
                                     <img onClick={() => removeFromWishlist({ prodId: product._id })} src="/images/cross.svg" className='position-absolute cross img-fluid' alt="cross" />

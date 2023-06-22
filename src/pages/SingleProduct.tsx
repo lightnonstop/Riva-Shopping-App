@@ -24,12 +24,12 @@ export default function SingleProduct() {
     const [orderedProduct, setOrderedProduct] = useState<number>(1);
 
     const [color,setColor] = useState<null | string>(null);
+    
     const [quantity,setQuantity] = useState<number>(0);
     const [addedToCart,setAddedToCart] = useState<boolean>(false);
 
     const cart = useAppSelector(state => state.auth.productCart)
-    
-    const productImageSource = product?.images[0].url;
+    const productImageSource = product?.images[0] ? product?.images[0].url : '';
     const alt = 'Wristwatch';
     useEffect(() => {
         dispatch(getAProduct(productId))
@@ -56,6 +56,7 @@ export default function SingleProduct() {
                 color,
                 price: product?.price,
             }))
+            navigate('/cart')
         }
     }
     const props = {
@@ -164,7 +165,8 @@ export default function SingleProduct() {
                                         <div className=''>
                                             <input type="number" name="" id="" min={1} max={10} className='form-control' style={{ width: '70px' }} value={quantity} onChange= {(e) => setQuantity(Number(e.target.value))} />
                                         </div>
-                                        <div className='d-flex align-items-center gap-30 ms-5'>
+                                        <div className={addedToCart ? `ms-0`: `ms-5` + 'd-flex align-items-center gap-30 ms-5'
+                                        }>
                                             <button className='button border-0 text-capitalize' type='submit' onClick={() => addedToCart 
                                                 ? navigate('/cart') 
                                                 : uploadToCart()}>
@@ -172,9 +174,9 @@ export default function SingleProduct() {
                                                 ? "Go to cart" 
                                                 : "Add to Cart"}
                                             </button>
-                                            <button className='button signup text-capitalize'>
+                                            {/* <button className='button signup text-capitalize'>
                                                 Buy It Now
-                                            </button>
+                                            </button> */}
                                         </div>
                                     </div>
                                 </div>
