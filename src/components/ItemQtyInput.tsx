@@ -20,7 +20,7 @@ function ItemQtyInput({ cartItem }: ItemQtyInputProps) {
         }
     }, [dispatch, productDetail])
   return (
-    <input className='form-control' type="number" value={productDetail?.itemQty} placeholder={`${cartItem?.quantity}`}  min={1} onChange={(e) => setProductDetail({ id: cartItem?.product._id, itemQty: e.target.value})}
+    <input className='form-control' type="number" value={productDetail?.itemQty} placeholder={`${cartItem?.quantity}`}  min={1} onChange={(e) => setProductDetail({ id: cartItem?.product._id, itemQty: Number(e.target.value)})}
     />
   )
 }
