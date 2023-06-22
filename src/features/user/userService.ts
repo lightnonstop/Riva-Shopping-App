@@ -56,7 +56,7 @@ const removeCartItem = async (id: string ) => {
 }
 export type cartItemDetailProps = {
     id: string | undefined 
-    itemQty: string;
+    itemQty: number;
 } | undefined
 const updateQty = async (cartItemDetail:  cartItemDetailProps) => {
     const response = await axios.put(`${baseUrl}user/cart/update-cart-item-qty/${cartItemDetail?.id}`, {
