@@ -1,19 +1,24 @@
 import { NavLink, Link } from "react-router-dom";
 import { BsSearch } from 'react-icons/bs';
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getUserCart } from "../features/user/userSlice";
 export default function Header() {
   const dispatch = useAppDispatch();
   const cart = useAppSelector(state => state.auth.productCart)
   const [itemCount, setItemCount] = useState<number | undefined>(0);
   const [cartTotal, setCartTotal] = useState<number | undefined>(0);
+
+  const handleCartTotal = useCallback((appCart: typeof cart) => {
+      return appCart?.map(cartItem => {
+        return cartItem.price * cartItem.quantity;
+      }).reduce((curr, next) => {return (curr + next)})
+  }, [])
+
   useEffect(() => {
     setItemCount(cart?.length)
-    setCartTotal(cart?.map(cartItem => {
-      return cartItem.price * cartItem.quantity;
-    }).reduce((curr, next) => {return (curr + next)}))
-  }, [cart])
+    setCartTotal(handleCartTotal(cart))
+  }, [cart, handleCartTotal])
   useEffect(() => {
     dispatch(getUserCart())
   }, [dispatch])
